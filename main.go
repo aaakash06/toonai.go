@@ -25,6 +25,10 @@ func initializeRoutes(r *mux.Router) {
 	// Create a subrouter for /api
 	api := r.PathPrefix("/api").Subrouter()
 
+	api.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Welcome to toon.ai API"))
+	}).Methods("GET")
 	// Comic routes
 	api.HandleFunc("/comics/chapters/{chapterID}", handlers.GetComicChapter).Methods("GET")
 	
