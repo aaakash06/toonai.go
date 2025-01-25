@@ -5,8 +5,9 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"toonai.go/handlers"
+	"toonai.go/middleware"
 )
-
 func main() {
 	r := mux.NewRouter()
 
