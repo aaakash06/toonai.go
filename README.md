@@ -46,3 +46,10 @@ vi .bashrc
 alias air='$(go env GOPATH)/bin/air'
 :wq
 ```
+
+# air config and starting up app
+
+```bash
+air init
+air
+```
