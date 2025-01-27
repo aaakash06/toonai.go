@@ -4,6 +4,8 @@ import (
 	"log"
 	"net/http"
 
+	"time"
+
 	"github.com/gorilla/mux"
 	"toonai.go/handlers"
 	"toonai.go/middleware"
@@ -28,13 +30,20 @@ func initializeRoutes(r *mux.Router) {
 	api.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "text/stream")
-		// for i := 0; i < 10; i++ {
-		// 	w.Write([]byte("Hello, World!\n"))
-		// 	w.(http.Flusher).Flush()
-		// 	time.Sleep(1 * time.Second)
-		// }
-		w.Write([]byte("Hello, World!\n"))
+		for i := 0; i < 10; i++ {
+			w.Write([]byte("Hello, World!\n"))
+			w.(http.Flusher).Flush()
+			time.Sleep(1 * time.Second)
+		}
+		// w.Write([]byte("Hello, World!\n"))
 	}).Methods("GET")
+
+	api.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"message": "Hello, World!"}`))
+	})
+
 	// Comic routes
 	api.HandleFunc("/comics/chapters/{chapterID}", handlers.GetComicChapter).Methods("GET")
 	
